@@ -1,30 +1,35 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:new_york_times/bloc/articles_bloc.dart';
+import 'package:new_york_times/bloc/articles_event.dart';
+import 'package:new_york_times/bloc/articles_state.dart';
+import 'package:new_york_times/view/articles_screen.dart';
+import 'package:mockito/mockito.dart';
 
-import 'package:new_york_times/main.dart';
+// Mock class for the ArticlesBloc
+class MockArticlesBloc extends MockBloc<ArticlesEvent, ArticlesState> implements ArticlesBloc {}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('ArticlesListScreen', () {
+    MockArticlesBloc mockArticlesBloc = MockArticlesBloc();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    testWidgets('renders CircularProgressIndicator when loading', (WidgetTester tester) async {
+      when(mockArticlesBloc.state).thenReturn(ArticlesPageLoading());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: BlocProvider<ArticlesBloc>.value(
+              value: mockArticlesBloc,
+              child: ArticlesListScreen(),
+            ),
+          ),
+        ),
+      );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
   });
 }
