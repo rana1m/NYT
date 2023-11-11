@@ -5,10 +5,10 @@ import 'package:new_york_times/routes/routes.dart';
 import 'package:new_york_times/services/api.dart';
 import 'package:new_york_times/view/articles_screen.dart';
 
-GetIt locator = GetIt.instance;
+GetIt getIt = GetIt.instance;
 
 void main() {
-  locator.registerLazySingleton<Api>(() => Api(Dio()));
+  getIt.registerLazySingleton<Api>(() => Api(Dio()));
   runApp(const MyApp());
 }
 

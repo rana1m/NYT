@@ -12,8 +12,8 @@ import 'package:new_york_times/services/api.dart';
 class MockArticlesRepo extends Mock implements ArticlesRepo {}
 
 void main() {
-  GetIt locator = GetIt.instance;
-  locator.registerLazySingleton<Api>(() => Api(Dio()));
+  GetIt getIt = GetIt.instance;
+  getIt.registerLazySingleton<Api>(() => Api(Dio()));
   ArticlesBloc articlesBloc = ArticlesBloc();
   MockArticlesRepo mockArticlesRepo = MockArticlesRepo();
 

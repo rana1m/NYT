@@ -8,7 +8,7 @@ import 'package:new_york_times/data/articles_list.dart';
 import 'package:new_york_times/view/widgets/articles_list_widget.dart';
 
 class ArticlesListScreen extends StatefulWidget {
-  static const String id = "Articles_list_screen";
+  static const String id = "articles_list_screen";
   const ArticlesListScreen({super.key});
 
   @override
@@ -30,7 +30,7 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("e"),
+        title: const Text("NYT"),
       ),
       body: BlocConsumer<ArticlesBloc, ArticlesState>(
         builder: (context, state) {
